@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cooljs.modules.base.mapper.sys.BaseSysUserMapper">
+
+    <select id="page" resultType="com.cooljs.modules.base.entity.sys.BaseSysUserEntity">
+        SELECT a.id,
+        a.name,
+        a.nickName,
+        a.headImg,
+        a.email,
+        a.remark,
+        a.status,
+        a.createTime,
+        a.updateTime,
+        a.username,
+        a.phone,
+        a.departmentId,
+        GROUP_CONCAT(c.name) AS roleName,
+        d.name as departmentName
+        FROM base_sys_user a
+        LEFT JOIN base_sys_user_role b ON a.id = b.userId
+        LEFT JOIN base_sys_role c ON b.roleId = c.id
+        LEFT JOIN base_sys_department d on a.departmentId = d.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>

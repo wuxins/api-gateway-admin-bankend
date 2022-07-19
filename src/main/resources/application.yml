@@ -1,0 +1,113 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /
+
+spring:
+  profiles:
+    active: @spring.active@
+  #返回时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  # ehcache 缓存
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:cool/cache/ehcache.xml
+  # redis 缓存
+  #  cache:
+  #    type: redis
+  #  redis:
+  #    host: 127.0.0.1
+  #    port: 6379
+  #    database: 0
+  #    password:
+
+  quartz:
+    #相关属性配置
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: CoolScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 1000
+            threadPriority: 9
+            threadsInheritContextClassLoaderOfInitializingThread: true
+    #数据库方式
+    job-store-type: jdbc
+    #初始化表结构
+    jdbc:
+      initialize-schema: ALWAYS
+
+# mybatis-plus 配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/**.xml
+  typeAliasesPackage: com.cooljs.modules.*.entity.*
+  typeEnumsPackage: com.cooljs.modules.*.entity.*
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      id-type: auto
+      update-strategy: ignored
+
+# 忽略鉴权url
+ignored:
+  urls:
+    - /
+    - /upload/**
+    - /app/**
+    - /favicon.ico
+    - /api-docs/**
+    - /swagger
+    - /swagger-ui/**
+    - /css/*
+    - /js/*
+    - /druid/**
+    - /admin/base/open/**
+    - /admin/base/comm/eps
+
+cool:
+  # token 相关配置
+  token:
+    # 过期时间 单位：秒 半小时
+    expire: 1800
+    # 刷新token过期时间 单位：秒 7天
+    refreshExpire: 604800
+    # 密钥
+    secret: HBFOFEQMPFOfi
+  # 文件上传相关
+  file:
+    #上传模式
+    mode: local
+    # 本地上传配置
+    local:
+      # 文件根地址
+      base-url: http://127.0.0.1:8001
+      # 文件存放路径
+      filePath: /Users/mac/Documents/src/cool/temp/
+#    mode: cloud
+#    # oss上传配置
+#    oss:
+#      access-key-id:
+#      access-key-secret:
+#      bucket:
+#      endpoint:
+#      timeout: 3600

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cooljs.modules.task.mapper.TaskLogMapper">
+    <select id="log" resultType="com.cooljs.modules.task.entity.TaskLogEntity">
+        SELECT
+        a.*,
+        b.NAME AS taskName
+        FROM
+        task_log a
+        JOIN task_info b ON a.taskId = b.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>

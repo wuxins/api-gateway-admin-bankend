@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cooljs.modules.base.mapper.sys.BaseSysRoleMenuMapper">
+    <!--根据角色获得菜单-->
+    <select id="userIds" resultType="java.lang.Long">
+        SELECT
+        b.userId
+        FROM
+        base_sys_role_menu a
+        LEFT JOIN base_sys_user_role b ON a.roleId = b.roleId
+        <if test="menuId!= null">
+            WHERE
+            a.menuId = #{menuId}
+        </if>
+        GROUP BY
+        b.userId
+    </select>
+</mapper>

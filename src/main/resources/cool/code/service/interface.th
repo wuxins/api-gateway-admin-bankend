@@ -1,0 +1,10 @@
+package com.cooljs.modules.[(${module})].service[(${subModule}?'.'+${subModule}:'')];
+
+import com.cooljs.core.base.BaseService;
+import com.cooljs.modules.[(${module})].entity[(${subModule}?'.'+${subModule}:'')].[(${entity})]Entity;
+
+/**
+ * [(${name})]
+ */
+public interface [(${entity})]Service extends BaseService<[(${entity})]Entity> {
+}

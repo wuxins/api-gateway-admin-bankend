@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cooljs.modules.base.mapper.sys.BaseSysLogMapper">
+    <select id="page" resultType="com.cooljs.modules.base.entity.sys.BaseSysLogEntity">
+        SELECT
+        a.*,
+        b.name
+        FROM
+        base_sys_log a
+        LEFT JOIN base_sys_user b ON a.userId = b.id
+        <where>
+            ${ew.sqlSegment}
+        </where>
+    </select>
+</mapper>
